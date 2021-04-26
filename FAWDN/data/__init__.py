@@ -16,9 +16,9 @@ def create_dataloader(dataset, dataset_opt):
 def create_dataset(dataset_opt):
     mode = dataset_opt['mode'].upper()
     if mode == 'LR':
-        from data.LR_dataset import LRDataset as D
+        from FAWDN.data.LR_dataset import LRDataset as D
     elif mode == 'LRHR':
-        from data.LRHR_dataset import LRHRDataset as D
+        from FAWDN.data.LRHR_dataset import LRHRDataset as D
     else:
         raise NotImplementedError("Dataset [%s] is not recognized." % mode)
     dataset = D(dataset_opt)

@@ -1,6 +1,6 @@
 import cv2
 import os
-
+import numpy as np
 def load_images_from_folder(folder):
     images = []
     for filename in os.listdir(folder):
@@ -12,7 +12,7 @@ def load_images_from_folder(folder):
 def main2(inputimage):
 
     image =inputimage
-    print("hejsa4")
+
     return cv2.resize(image,None,fx=2,fy=2,interpolation=cv2.INTER_CUBIC)
 
 

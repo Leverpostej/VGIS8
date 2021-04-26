@@ -1,6 +1,6 @@
 import torch.utils.data as data
 
-from data import common
+from FAWDN.data import common
 
 
 class LRHRDataset(data.Dataset):

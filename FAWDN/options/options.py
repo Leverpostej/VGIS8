@@ -5,7 +5,7 @@ import json
 
 import torch
 
-from utils import util
+from FAWDN.utils import util
 
 def get_timestamp():
     return datetime.now().strftime('%y%m%d-%H%M%S')

@@ -8,10 +8,10 @@ import torch.nn as nn
 import torch.optim as optim
 import torchvision.utils as thutil
 
-from networks import create_model
+from FAWDN.networks import create_model
 from .base_solver import BaseSolver
-from networks import init_weights
-from utils import util
+from FAWDN.networks import init_weights
+from FAWDN.utils import util
 
 class SRSolver(BaseSolver):
     def __init__(self, opt):

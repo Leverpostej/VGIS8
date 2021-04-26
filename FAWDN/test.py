@@ -1,19 +1,22 @@
 import argparse, time, os
 import imageio
+from pathlib import Path
+import FAWDN.options.options as option
+from FAWDN.utils import util
+from FAWDN.solvers import create_solver
+from FAWDN.data import create_dataloader
+from FAWDN.data import create_dataset
+import asyncstdlib as a
 
-import options.options as option
-from utils import util
-from solvers import create_solver
-from data import create_dataloader
-from data import create_dataset
-
-
-def main():
+def main(lrpath, hrpath):
     parser = argparse.ArgumentParser(description='Test Super Resolution Models')
-    parser.add_argument('-opt', type=str, required=True, help='Path to options JSON file.')
+    parser.add_argument('-opt', type=str, required=False, help='Path to options JSON file.', default="C:/Users/tobia/Documents/GitHub/VGIS8/FAWDN/options/test/test_FAWDN_x2.json" )
     opt = option.parse(parser.parse_args().opt)
     opt = option.dict_to_nonedict(opt)
-
+    opt['datasets']['test_set1']['dataroot_HR'] = hrpath
+    opt['datasets']['test_set1']['dataroot_LR'] = lrpath
+    exp_path = str(Path().absolute()) + "/FAWDN\models/best_FAWDN+_x2.pth"
+    opt['solver']['pretrained_path'] = exp_path
     # initial configure
     scale = opt['scale']
     degrad = opt['degradation']
@@ -49,8 +52,10 @@ def main():
         total_time = []
 
         need_HR = False if test_loader.dataset.__class__.__name__.find('LRHR') < 0 else True
-
+        print(len(test_loader))
         for iter, batch in enumerate(test_loader):
+
+
             solver.feed_data(batch, need_HR=need_HR)
 
             # calculate forward time
@@ -76,8 +81,9 @@ def main():
                 path_list.append(os.path.basename(batch['LR_path'][0]))
                 print("[%d/%d] %s || Timer: %.4f sec ." % (iter + 1, len(test_loader),
                                                            os.path.basename(batch['LR_path'][0]),
-                                                           (t1 - t0)))
-
+                                                         (t1 - t0)))
+        print(sr_list)
+        return  sr_list
         if need_HR:
             print("---- Average PSNR(dB) /SSIM /Speed(s) for [%s] ----" % bm)
             print("PSNR: %.2f      SSIM: %.4f      Speed: %.4f" % (sum(total_psnr)/len(total_psnr),
@@ -102,5 +108,3 @@ def main():
     print("==================================================")
     print("===> Finished !")
 
-if __name__ == '__main__':
-    main()
