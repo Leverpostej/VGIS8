@@ -3,18 +3,18 @@ from tqdm import tqdm
 
 import torch
 
-import options.options as option
-from utils import util
-from solvers import create_solver
-from data import create_dataloader
-from data import create_dataset
+import FAWDN.options.options as option
+from FAWDN.utils import util
+from FAWDN.solvers import create_solver
+from FAWDN.data import create_dataloader
+from FAWDN.data import create_dataset
 import numpy as np
 
 
 def main():
     torch.backends.cudnn.benchmark=True
     parser = argparse.ArgumentParser(description='Train Super Resolution Models')
-    parser.add_argument('-opt', type=str, required=True, help='Path to options JSON file.')
+    parser.add_argument('-opt', type=str, required=False, help='Path to options JSON file.', default="C:/Users/tobia/Documents/GitHub/VGIS8/FAWDN/options/train/train_FAWDN.json")
     opt = option.parse(parser.parse_args().opt)
 
     # random seed
@@ -41,6 +41,7 @@ def main():
             print('===> Val Dataset: %s   Number of images: [%d]' % (val_set.name(), len(val_set)))
 
         else:
+            print("niels")
             raise NotImplementedError("[Error] Dataset phase [%s] in *.json is not recognized." % phase)
 
     solver = create_solver(opt)
@@ -133,5 +134,3 @@ def main():
     print('===> Finished !')
 
 
-if __name__ == '__main__':
-    main()

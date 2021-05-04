@@ -1,0 +1,244 @@
+FAWDN(
+  (sub_mean): MeanShift(3, 3, kernel_size=(1, 1), stride=(1, 1))
+  (conv_in): Conv2d(3, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (block): AWDB(
+    (compress_in): Sequential(
+      (0): Conv2d(272, 16, kernel_size=(1, 1), stride=(1, 1))
+      (1): ReLU(inplace=True)
+    )
+    (block): Sequential(
+      (0): SingleBlock(
+        (block): Sequential(
+          (0): SingleLayer(
+            (conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (1): SingleLayer(
+            (conv): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (2): SingleLayer(
+            (conv): Conv2d(48, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (3): SingleLayer(
+            (conv): Conv2d(64, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (4): SingleLayer(
+            (conv): Conv2d(80, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (5): SingleLayer(
+            (conv): Conv2d(96, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (6): SingleLayer(
+            (conv): Conv2d(112, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (7): SingleLayer(
+            (conv): Conv2d(128, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+        )
+      )
+      (1): SingleBlock(
+        (block): Sequential(
+          (0): SingleLayer(
+            (conv): Conv2d(144, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (1): SingleLayer(
+            (conv): Conv2d(160, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (2): SingleLayer(
+            (conv): Conv2d(176, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (3): SingleLayer(
+            (conv): Conv2d(192, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (4): SingleLayer(
+            (conv): Conv2d(208, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (5): SingleLayer(
+            (conv): Conv2d(224, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (6): SingleLayer(
+            (conv): Conv2d(240, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (7): SingleLayer(
+            (conv): Conv2d(256, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+        )
+      )
+      (2): SingleBlock(
+        (block): Sequential(
+          (0): SingleLayer(
+            (conv): Conv2d(272, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (1): SingleLayer(
+            (conv): Conv2d(288, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (2): SingleLayer(
+            (conv): Conv2d(304, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (3): SingleLayer(
+            (conv): Conv2d(320, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (4): SingleLayer(
+            (conv): Conv2d(336, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (5): SingleLayer(
+            (conv): Conv2d(352, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (6): SingleLayer(
+            (conv): Conv2d(368, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (7): SingleLayer(
+            (conv): Conv2d(384, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+        )
+      )
+      (3): SingleBlock(
+        (block): Sequential(
+          (0): SingleLayer(
+            (conv): Conv2d(400, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (1): SingleLayer(
+            (conv): Conv2d(416, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (2): SingleLayer(
+            (conv): Conv2d(432, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (3): SingleLayer(
+            (conv): Conv2d(448, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (4): SingleLayer(
+            (conv): Conv2d(464, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (5): SingleLayer(
+            (conv): Conv2d(480, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (6): SingleLayer(
+            (conv): Conv2d(496, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (7): SingleLayer(
+            (conv): Conv2d(512, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+        )
+      )
+      (4): SingleBlock(
+        (block): Sequential(
+          (0): SingleLayer(
+            (conv): Conv2d(528, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (1): SingleLayer(
+            (conv): Conv2d(544, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (2): SingleLayer(
+            (conv): Conv2d(560, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (3): SingleLayer(
+            (conv): Conv2d(576, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (4): SingleLayer(
+            (conv): Conv2d(592, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (5): SingleLayer(
+            (conv): Conv2d(608, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (6): SingleLayer(
+            (conv): Conv2d(624, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (7): SingleLayer(
+            (conv): Conv2d(640, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+        )
+      )
+      (5): SingleBlock(
+        (block): Sequential(
+          (0): SingleLayer(
+            (conv): Conv2d(656, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (1): SingleLayer(
+            (conv): Conv2d(672, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (2): SingleLayer(
+            (conv): Conv2d(688, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (3): SingleLayer(
+            (conv): Conv2d(704, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (4): SingleLayer(
+            (conv): Conv2d(720, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (5): SingleLayer(
+            (conv): Conv2d(736, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (6): SingleLayer(
+            (conv): Conv2d(752, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (7): SingleLayer(
+            (conv): Conv2d(768, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+        )
+      )
+      (6): SingleBlock(
+        (block): Sequential(
+          (0): SingleLayer(
+            (conv): Conv2d(784, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (1): SingleLayer(
+            (conv): Conv2d(800, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (2): SingleLayer(
+            (conv): Conv2d(816, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (3): SingleLayer(
+            (conv): Conv2d(832, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (4): SingleLayer(
+            (conv): Conv2d(848, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (5): SingleLayer(
+            (conv): Conv2d(864, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (6): SingleLayer(
+            (conv): Conv2d(880, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (7): SingleLayer(
+            (conv): Conv2d(896, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+        )
+      )
+      (7): SingleBlock(
+        (block): Sequential(
+          (0): SingleLayer(
+            (conv): Conv2d(912, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (1): SingleLayer(
+            (conv): Conv2d(928, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (2): SingleLayer(
+            (conv): Conv2d(944, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (3): SingleLayer(
+            (conv): Conv2d(960, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (4): SingleLayer(
+            (conv): Conv2d(976, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (5): SingleLayer(
+            (conv): Conv2d(992, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (6): SingleLayer(
+            (conv): Conv2d(1008, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (7): SingleLayer(
+            (conv): Conv2d(1024, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+        )
+      )
+    )
+    (Bottleneck): Conv2d(1040, 256, kernel_size=(1, 1), stride=(1, 1))
+  )
+  (convt): Sequential(
+    (0): ConvTranspose2d(256, 256, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+    (1): ConvTranspose2d(256, 256, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+  )
+  (conv2): Conv2d(256, 3, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (add_mean): MeanShift(3, 3, kernel_size=(1, 1), stride=(1, 1))
+)
+Network structure: [DataParallel - FAWDN], with parameters: [7,171,339]

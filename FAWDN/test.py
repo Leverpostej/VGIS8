@@ -6,16 +6,14 @@ from FAWDN.utils import util
 from FAWDN.solvers import create_solver
 from FAWDN.data import create_dataloader
 from FAWDN.data import create_dataset
-import asyncstdlib as a
 
-def main(lrpath, hrpath):
+
+def main(modelpath):
     parser = argparse.ArgumentParser(description='Test Super Resolution Models')
-    parser.add_argument('-opt', type=str, required=False, help='Path to options JSON file.', default="C:/Users/tobia/Documents/GitHub/VGIS8/FAWDN/options/test/test_FAWDN_x2.json" )
+    parser.add_argument('-opt', type=str, required=False, help='Path to options JSON file.', default=modelpath)
     opt = option.parse(parser.parse_args().opt)
     opt = option.dict_to_nonedict(opt)
-    opt['datasets']['test_set1']['dataroot_HR'] = hrpath
-    opt['datasets']['test_set1']['dataroot_LR'] = lrpath
-    exp_path = str(Path().absolute()) + "/FAWDN\models/best_FAWDN+_x2.pth"
+    exp_path = modelpath
     opt['solver']['pretrained_path'] = exp_path
     # initial configure
     scale = opt['scale']

@@ -1,3 +1,14 @@
 
 EnsembleLearing-Network/VGG/vgg19.npy
 *.xml
+*.xml
+.idea/VGIS8.iml
+.idea/workspace.xml
+__pycache__/chromatic.cpython-38.pyc
+Bicubic/__pycache__/bicubic.cpython-38.pyc
+.idea/misc.xml
+.idea/misc.xml
+.idea/VGIS8.iml
+.idea/workspace.xml
+*.xml
+*.iml
