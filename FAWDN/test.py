@@ -79,7 +79,7 @@ def main(lrpath, hrpath, modelpath):
                 print("[%d/%d] %s || Timer: %.4f sec ." % (iter + 1, len(test_loader),
                                                            os.path.basename(batch['LR_path'][0]),
                                                          (t1 - t0)))
-        print(sr_list)
+        #print(sr_list)
         return  sr_list
         if need_HR:
             print("---- Average PSNR(dB) /SSIM /Speed(s) for [%s] ----" % bm)
