@@ -52,7 +52,7 @@ def main():
         #cv2.imwrite("C:/Users/tobia/Desktop/images/Poisson/" + names[i], poisson)
         #cv2.imwrite("C:/Users/tobia/Desktop/images/Speckle/" + names[i], speckle)
         i+=1
-    print("hej")
+    #print("hej")
 
     #train = out[:round(len(images)-(len(images)/3))]
     #val = out[round(len(images)-(len(images)/3)):]
@@ -108,4 +108,4 @@ def noisy(noise_typ,image):
       return noisy
 
 
-main()
+#main()

@@ -29,9 +29,9 @@ def prepareData():
 
     # turns it into npy
 
-def start_FAWDN(modelpath): # fawdn takes a directory of lr images and a directory of hr images
+def start_FAWDN(hrpath, lrpath, modelpath): # fawdn takes a directory of lr images and a directory of hr images
     print("yo")
-    r= FAWDN(modelpath)
+    r= FAWDN(hrpath, lrpath, modelpath)
     return r
 
 
@@ -45,13 +45,13 @@ if __name__ ==  '__main__':
     #prepareData()
     #f = np.load("C:/Users/tobia/Desktop/downloads/npy/imgds.npy", allow_pickle=True)
 
-    test_image1 = "C:/Users/tobia/Desktop/images/Val/HR"
-    test_image2 = "C:/Users/tobia/Desktop/images/Val/LR"
+    test_image1 = "C:/Users/tobia/Documents/GitHub/VGIS8/FAWDN/results/HR/MRI13/x2"
+    test_image2 = "C:/Users/tobia/Documents/GitHub/VGIS8/FAWDN/results/LR/MRI13/x2"
     results = []
-    optionspath = ["C:/Users/tobia/Documents/GitHub/VGIS8/FAWDN/options/test/test_FAWDN_x3.json","C:/Users/tobia/Documents/GitHub/VGIS8/FAWDN/options/test/normalpothoptions.json"]
+    optionspath = ["C:/Users/tobia/Documents/GitHub/VGIS8/FAWDN/options/final/normalpothoptions.json","C:/Users/tobia/Documents/GitHub/VGIS8/FAWDN/options/final/chromatic_FAWDN.json", "C:/Users/tobia/Documents/GitHub/VGIS8/FAWDN/options/final/poisson_FAWDN.json"]
     for model in optionspath:
        print(model)
-       results.append(start_FAWDN(model))
+       results.append(start_FAWDN(test_image1, test_image2, model))
 
     #inputimageLR = cv2.imread("Datasets/MRI13/LR/1_ankle_LRBI_x2.png")
     #inputimageHR = cv2.imread("Datasets/MRI13/HR/1_ankle_HR_x2.png")
