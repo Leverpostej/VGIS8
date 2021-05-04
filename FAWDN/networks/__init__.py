@@ -89,7 +89,7 @@ def create_model(opt):
 def define_net(opt):
 
     which_model = opt['which_model'].upper()
-    print('===> Building network [%s]...'%which_model)
+    #print('===> Building network [%s]...'%which_model)
 
     if which_model == 'FAWDN':
         from .FAWDN import FAWDN

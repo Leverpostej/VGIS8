@@ -7,12 +7,13 @@ from FAWDN.solvers import create_solver
 from FAWDN.data import create_dataloader
 from FAWDN.data import create_dataset
 
-def main(lrpath, hrpath, modelpath):
+def main(modelpath):
     parser = argparse.ArgumentParser(description='Test Super Resolution Models')
     parser.add_argument('-opt', type=str, required=False, help='Path to options JSON file.', default=modelpath)
     opt = option.parse(parser.parse_args().opt)
     opt = option.dict_to_nonedict(opt)
 
+    #opt['solver']['pretrained_path'] =os.getcwd()+"/FAWDN/options/final/"+opt['solver']['pretrained_path']
 
     # initial configure
     scale = opt['scale']
@@ -28,18 +29,18 @@ def main(lrpath, hrpath, modelpath):
         test_set = create_dataset(dataset_opt)
         test_loader = create_dataloader(test_set, dataset_opt)
         test_loaders.append(test_loader)
-        print('===> Test Dataset: [%s]   Number of images: [%d]' % (test_set.name(), len(test_set)))
+        #print('===> Test Dataset: [%s]   Number of images: [%d]' % (test_set.name(), len(test_set)))
         bm_names.append(test_set.name())
 
     # create solver (and load model)
     solver = create_solver(opt)
     # Test phase
-    print('===> Start Test')
-    print("==================================================")
-    print("Method: %s || Scale: %d || Degradation: %s"%(model_name, scale, degrad))
+    #print('===> Start Test')
+    #print("==================================================")
+    #print("Method: %s || Scale: %d || Degradation: %s"%(model_name, scale, degrad))
 
     for bm, test_loader in zip(bm_names, test_loaders):
-        print("Test set : [%s]"%bm)
+        #print("Test set : [%s]"%bm)
 
         sr_list = []
         path_list = []
@@ -49,7 +50,7 @@ def main(lrpath, hrpath, modelpath):
         total_time = []
 
         need_HR = False if test_loader.dataset.__class__.__name__.find('LRHR') < 0 else True
-        print(len(test_loader))
+        #print(len(test_loader))
         for iter, batch in enumerate(test_loader):
 
 
@@ -70,10 +71,10 @@ def main(lrpath, hrpath, modelpath):
                 total_psnr.append(psnr)
                 total_ssim.append(ssim)
                 path_list.append(os.path.basename(batch['HR_path'][0]).replace('HR', model_name))
-                print("[%d/%d] %s || PSNR(dB)/SSIM: %.2f/%.4f || Timer: %.4f sec ." % (iter+1, len(test_loader),
+                print("[%d/%d] %s || PSNR(dB)/SSIM: %.2f/%.4f || Timer: %.4f sec || " % (iter+1, len(test_loader),
                                                                                        os.path.basename(batch['LR_path'][0]),
                                                                                        psnr, ssim,
-                                                                                       (t1 - t0)))
+                                                                                       (t1 - t0)), opt['solver']['pretrained_path'].rsplit('/',1)[1])
             else:
                 path_list.append(os.path.basename(batch['LR_path'][0]))
                 print("[%d/%d] %s || Timer: %.4f sec ." % (iter + 1, len(test_loader),

@@ -29,7 +29,7 @@ class SRSolver(BaseSolver):
                         'lr': []}
 
         self.model = create_model(opt)
-        self.print_network()
+        #self.print_network()
 
         if self.is_train:
             self.model.train()
@@ -73,8 +73,8 @@ class SRSolver(BaseSolver):
         #     self.optimizer = optim.Adam(self.model.parameters(),
         #                                 lr=self.train_opt['learning_rate'], weight_decay=weight_decay)
 
-        print('===> Solver Initialized : [%s] || Use CL : [%s] || Use GPU : [%s]'%(self.__class__.__name__,
-                                                                                       self.use_cl, self.use_gpu))
+        #print('===> Solver Initialized : [%s] || Use CL : [%s] || Use GPU : [%s]'%(self.__class__.__name__,
+                                                                                       #self.use_cl, self.use_gpu))
         if self.is_train:
             print("optimizer: ", self.optimizer)
             print("lr_scheduler milestones: %s   gamma: %f"%(self.scheduler.milestones, self.scheduler.gamma))

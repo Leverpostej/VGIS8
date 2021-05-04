@@ -28,7 +28,7 @@ def parse(opt_path):
     if torch.cuda.is_available():
         gpu_list = ','.join(str(x) for x in opt['gpu_ids'])
         os.environ['CUDA_VISIBLE_DEVICES'] = gpu_list
-        print('===> Export CUDA_VISIBLE_DEVICES = [' + gpu_list + ']')
+        #print('===> Export CUDA_VISIBLE_DEVICES = [' + gpu_list + ']')
     else:
         print('===> CPU mode is set (NOTE: GPU is recommended)')
 

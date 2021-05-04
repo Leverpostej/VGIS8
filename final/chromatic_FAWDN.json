@@ -20,7 +20,7 @@
     },
 
     "networks": {
-        "which_model": "FAWDN",
+        "which_model":  "FAWDN",
         "num_features": 16,
         "in_channels": 3,
         "out_channels": 3,
@@ -30,6 +30,6 @@
     },
 
     "solver": {
-        "pretrained_path": "C:/Users/tobia/Documents/GitHub/VGIS8/FAWDN/options/final/normalmodel.pth"
+        "pretrained_path": "normalmodel.pth"
     }
 }
