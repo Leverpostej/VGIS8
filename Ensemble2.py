@@ -45,13 +45,15 @@ if __name__ ==  '__main__':
     #prepareData()
     #f = np.load("C:/Users/tobia/Desktop/downloads/npy/imgds.npy", allow_pickle=True)
 
-    test_image1 = "C:/Users/tobia/Documents/GitHub/VGIS8/FAWDN/results/HR/MRI13/x2"
-    test_image2 = "C:/Users/tobia/Documents/GitHub/VGIS8/FAWDN/results/LR/MRI13/x2"
+    hrset = "C:/Users/tobia/Documents/GitHub/VGIS8/FAWDN/results/HR/MRI13/x2"
+    lrset = "C:/Users/tobia/Documents/GitHub/VGIS8/FAWDN/results/LR/MRI13/x2"
     results = []
-    optionspath = ["C:/Users/tobia/Documents/GitHub/VGIS8/FAWDN/options/final/normalpothoptions.json","C:/Users/tobia/Documents/GitHub/VGIS8/FAWDN/options/final/chromatic_FAWDN.json", "C:/Users/tobia/Documents/GitHub/VGIS8/FAWDN/options/final/poisson_FAWDN.json"]
-    for model in optionspath:
-       print(model)
-       results.append(start_FAWDN(test_image1, test_image2, model))
+    #optionspath = ["normalpothoptions.json","C:/Users/tobia/Documents/GitHub/VGIS8/FAWDN/options/final/chromatic_FAWDN.json", "C:/Users/tobia/Documents/GitHub/VGIS8/FAWDN/options/final/poisson_FAWDN.json"]
+    path_to_jsonfolder = 'C:/Users/tobia/Documents/GitHub/VGIS8/FAWDN/options/final/'
+    json_files = [pos_json for pos_json in os.listdir(path_to_jsonfolder) if pos_json.endswith('.json')]
+    for model in json_files:
+       print("Running ", model)
+       results.append(start_FAWDN(hrset, lrset, path_to_jsonfolder+model))
 
     #inputimageLR = cv2.imread("Datasets/MRI13/LR/1_ankle_LRBI_x2.png")
     #inputimageHR = cv2.imread("Datasets/MRI13/HR/1_ankle_HR_x2.png")
@@ -68,7 +70,6 @@ if __name__ ==  '__main__':
     #    cv2.imshow("ost" + str(i), image)
     #cv2.waitKey(0)
 
-
-
-    #print(len(resultimages))
+    print(results)
+    print(len(results))
 
