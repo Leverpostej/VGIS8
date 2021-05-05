@@ -7,13 +7,14 @@ from FAWDN.solvers import create_solver
 from FAWDN.data import create_dataloader
 from FAWDN.data import create_dataset
 
-def main(modelpath):
+def main(lrpath, hrpath, modelpath):
     parser = argparse.ArgumentParser(description='Test Super Resolution Models')
     parser.add_argument('-opt', type=str, required=False, help='Path to options JSON file.', default=modelpath)
     opt = option.parse(parser.parse_args().opt)
     opt = option.dict_to_nonedict(opt)
-
-    #opt['solver']['pretrained_path'] =os.getcwd()+"/FAWDN/options/final/"+opt['solver']['pretrained_path']
+    opt['datasets']['test_set1']['dataroot_HR'] = hrpath
+    opt['datasets']['test_set1']['dataroot_LR'] = lrpath
+    opt['solver']['pretrained_path'] =os.getcwd()+"/FAWDN/options/final/"+opt['solver']['pretrained_path']
 
     # initial configure
     scale = opt['scale']
