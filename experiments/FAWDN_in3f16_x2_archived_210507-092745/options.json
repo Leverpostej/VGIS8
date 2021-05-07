@@ -1,0 +1,84 @@
+{
+  "mode": "sr",
+  "use_cl": true,
+  "gpu_ids": [
+    0
+  ],
+  "scale": 2,
+  "is_train": true,
+  "use_chop": true,
+  "rgb_range": 255,
+  "self_ensemble": false,
+  "save_image": true,
+  "datasets": {
+    "train": {
+      "mode": "LRHR",
+      "dataroot_HR": "C:/Users/tobias/Desktop/images/HR",
+      "dataroot_LR": "C:/Users/tobias/Desktop/images/Speckle",
+      "data_type": "img",
+      "n_workers": 4,
+      "batch_size": 2,
+      "LR_size": 30,
+      "use_flip": true,
+      "use_rot": true,
+      "noise": ".",
+      "phase": "train",
+      "scale": 2,
+      "rgb_range": 255
+    },
+    "val": {
+      "mode": "LRHR",
+      "dataroot_HR": "C:/Users/tobias/Desktop/images/Val/HR",
+      "dataroot_LR": "C:/Users/tobias/Desktop/images/Val/Speckle",
+      "data_type": "img",
+      "phase": "val",
+      "scale": 2,
+      "rgb_range": 255
+    }
+  },
+  "networks": {
+    "which_model": "FAWDN",
+    "num_features": 16,
+    "in_channels": 3,
+    "out_channels": 3,
+    "num_steps": 2,
+    "nDenselayer": 8,
+    "nBlock": 8,
+    "scale": 2
+  },
+  "solver": {
+    "type": "ADAM",
+    "learning_rate": 0.0001,
+    "weight_decay": 0,
+    "lr_scheme": "MultiStepLR",
+    "lr_steps": [
+      200,
+      200,
+      300,
+      400
+    ],
+    "lr_gamma": 0.5,
+    "loss_type": "l1",
+    "manual_seed": 0,
+    "num_epochs": 10,
+    "skip_threshold": 3,
+    "split_batch": 1,
+    "save_ckp_step": 50,
+    "save_vis_step": 1,
+    "pretrain": false,
+    "pretrained_path": "/home/ser606/clh/AIM/experiments/ADAWDFBN_in3f16_x4/epochs/last_ckp.pth",
+    "cl_weights": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "timestamp": "210507-092708",
+  "path": {
+    "exp_root": "experiments\\FAWDN_in3f16_x2",
+    "epochs": "experiments\\FAWDN_in3f16_x2\\epochs",
+    "visual": "experiments\\FAWDN_in3f16_x2\\visual",
+    "records": "experiments\\FAWDN_in3f16_x2\\records"
+  }
+}

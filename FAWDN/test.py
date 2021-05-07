@@ -82,7 +82,7 @@ def main(lrpath, hrpath, modelpath):
                                                            os.path.basename(batch['LR_path'][0]),
                                                          (t1 - t0)))
         #print(sr_list)
-        return  sr_list
+        return  sr_list,(total_psnr,total_ssim)
         if need_HR:
             print("---- Average PSNR(dB) /SSIM /Speed(s) for [%s] ----" % bm)
             print("PSNR: %.2f      SSIM: %.4f      Speed: %.4f" % (sum(total_psnr)/len(total_psnr),

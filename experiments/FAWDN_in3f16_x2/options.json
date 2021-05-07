@@ -14,7 +14,7 @@
     "train": {
       "mode": "LRHR",
       "dataroot_HR": "C:/Users/tobia/Desktop/images/HR",
-      "dataroot_LR": "C:/Users/tobia/Desktop/images/Poisson",
+      "dataroot_LR": "C:/Users/tobia/Desktop/images/Blurred",
       "data_type": "img",
       "n_workers": 4,
       "batch_size": 6,
@@ -29,7 +29,7 @@
     "val": {
       "mode": "LRHR",
       "dataroot_HR": "C:/Users/tobia/Desktop/images/Val/HR",
-      "dataroot_LR": "C:/Users/tobia/Desktop/images/Val/LR",
+      "dataroot_LR": "C:/Users/tobia/Desktop/images/Val/Blurred",
       "data_type": "img",
       "phase": "val",
       "scale": 2,
@@ -60,7 +60,7 @@
     "lr_gamma": 0.5,
     "loss_type": "l1",
     "manual_seed": 0,
-    "num_epochs": 15,
+    "num_epochs": 10,
     "skip_threshold": 3,
     "split_batch": 1,
     "save_ckp_step": 50,
@@ -74,7 +74,7 @@
       1.0
     ]
   },
-  "timestamp": "210504-114719",
+  "timestamp": "210507-093103",
   "path": {
     "exp_root": "experiments\\FAWDN_in3f16_x2",
     "epochs": "experiments\\FAWDN_in3f16_x2\\epochs",
