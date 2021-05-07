@@ -1,16 +1,18 @@
 import cv2
 import os
 import numpy as np
+import chromatic
+
 def load_images_from_folder(folder):
     images = []
     names =[]
     for filename in os.listdir(folder):
         img = cv2.imread(os.path.join(folder,filename))
         if img is not None:
-            #images.append(img)
-            img_resized = cv2.resize(img, (30,30), interpolation=cv2.INTER_CUBIC)
-            cv2.imwrite(os.path.join(folder,filename), img_resized)
-            #names.append(os.path.join(filename))
+            images.append(img)
+            img_chromatic = chromatic.chromatic(os.path.join(folder,filename),2)
+            cv2.imwrite("C:/Users/Tobias/Desktop/images/Val/Chromatic/"+filename, img_chromatic)
+            names.append(os.path.join(filename))
         else:
             print("image is none")
     return images, names
@@ -25,12 +27,13 @@ def main2(inputimage):
 
 def main():
     vgisfolder= os.path.dirname(__file__)
-    images, names = load_images_from_folder("C:/Users/tobia/Desktop/images/Blurred")
+    images, names = load_images_from_folder("C:/Users/Tobias/Desktop/images/Val/LR")
     i=0
     #np.random.shuffle(images)
 
     dim = (30, 30)
     out=[]
+    print(len(images))
     for image in images:
         #img_resized= cv2.resize(image,dim,interpolation=cv2.INTER_CUBIC)
         #blurred = cv2.GaussianBlur(image,(3,3),0)
@@ -47,10 +50,11 @@ def main():
         #cv2.imshow("before", image)
 
         #cv2.waitKey(0)
-        print(names[i])
-        #cv2.imwrite("C:/Users/tobia/Desktop/images/Salty/"+names[i], sandp)
-        #cv2.imwrite("C:/Users/tobia/Desktop/images/Poisson/" + names[i], poisson)
-        #cv2.imwrite("C:/Users/tobia/Desktop/images/Speckle/" + names[i], speckle)
+        print("C:/Users/Tobias/Desktop/images/Val/Salty/"+names[i])
+        #cv2.imwrite("C:/Users/Tobias/Desktop/images/Val/Salty/"+names[i], sandp)
+        #cv2.imwrite("C:/Users/Tobias/Desktop/images/Val/Poisson/" + names[i], poisson)
+        #cv2.imwrite("C:/Users/Tobias/Desktop/images/Val/Speckle/" + names[i], speckle)
+        #cv2.imwrite("C:/Users/Tobias/Desktop/images/Val/Blurred/" + names[i], blurred2)
         i+=1
     #print("hej")
 
@@ -108,4 +112,4 @@ def noisy(noise_typ,image):
       return noisy
 
 
-#main()
+main()
