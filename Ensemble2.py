@@ -63,9 +63,9 @@ def compute_ensemble(HRpath, weigths):
         # psnr = []
         for i in range(0, len(modelresults)):
                 images.append(modelresults[i][hrimagenumber]) # gets SR result of model number i for testing image number hrimagenumber
-
-
-        sortedweigths= sortweigths(weigths, modelnames)
+        sortedweigths = sortweigths(weigths, modelnames)
+        '''
+        
         norm_psnr = []
         for value in sortedweigths:
             y = value  / (np.amax(sortedweigths))
@@ -74,11 +74,43 @@ def compute_ensemble(HRpath, weigths):
 
         mean_img = np.average(imgs, weights=norm_psnr, axis=0) # uses weights from validation testing
         #mean_img = imgs.mean(axis=0) # uses no weights
+        '''
+        #Majority voting
+        height,width = len(images[0]),len(images[0])
+        ensembleimage = 255 * np.ones((512,512,3), np.uint8)
+        for x in range(width):
+            for y in range(height):
+                pixelList = []
+                for modelImage in images:
+                    pixel = modelImage[x,y]
+                    pixelList.append(pixel)
+                #print(pixelList)
 
-        mean_img = mean_img.astype('uint8')
-        ensembleimages.append(mean_img)
+                votes=[0,0,0,0,0,0]
+
+                for numbervote in range (len(pixelList)):
+                    pixel1=pixelList[numbervote]
+
+                    for numbervote2 in range (numbervote+1,len(pixelList)):
+                        pixel2 =pixelList[numbervote2]
+                        if np.allclose(pixel1, pixel2):
+                            votes[numbervote] +=1
+                print(votes)
+                print(np.all(votes == 0))
+                winningvote=0
+                if np.all(votes == 0):
+
+                    winningvote= weigths.index(max(weigths))
+                    print("weigthdecier", winningvote)
+                else:
+                    winningvote = votes.index(max(votes))
+                #print("winning vote index", winningvote)
+                finalpixel =pixelList[winningvote]
+                ensembleimage[x,y] =finalpixel
+        #mean_img = mean_img.astype('uint8')
+        ensembleimages.append(ensembleimage)
         hr = cv2.imread(HRpath + "/" + hrimages[hrimagenumber]) # read the HR image to compare with emsemble image
-        psnr, ssim = util.calc_metrics(mean_img, hr, crop_border=2) # computes psnr/ssim value of the ensemble
+        psnr, ssim = util.calc_metrics(ensembleimage, hr, crop_border=2) # computes psnr/ssim value of the ensemble
         ensemblepsnr.append((psnr,ssim))
     return ensembleimages,ensemblepsnr # returns lists of all the ensemble images and their psnr value
 
@@ -144,9 +176,9 @@ if __name__ ==  '__main__':
     with open(os.getcwd()+ '/FAWDN/results/Ensemble/ensemble.csv', 'w') as csvfile:
         writer = csv.writer(csvfile, delimiter=';')
         for y in range (0,len(ensembleimages)):
-            #cv2.imshow(str(y), ensembleimages[y])
+            cv2.imshow(str(y), ensembleimages[y])
             path=os.getcwd()+"/FAWDN/results/Ensemble/"+str(y+1)
-            cv2.imwrite(path+".png", ensembleimages[y])
+            #cv2.imwrite(path+".png", ensembleimages[y])
             psnr, ssim = ensemblepsnr[y]
             print("Ensemble image number" ,str(y+1), "PSNR/SSIM:",round(psnr,2),"/",round(ssim,2))
             psnr = str(round(psnr,2))
@@ -163,8 +195,8 @@ if __name__ ==  '__main__':
     for i in range(0,len(modelresults)):
         for j in range(0,len(modelresults[i])):
             path =os.getcwd()+"/FAWDN/results/Modelpics/"+str(modelnames[i])+"imagenum"+str(j+1)
-            #cv2.imshow(str(modelnames[i])+"imagenum"+str(j+1), modelresults[i][j])
-            cv2.imwrite(path+".png",modelresults[i][j])
+            cv2.imshow(str(modelnames[i])+"imagenum"+str(j+1), modelresults[i][j])
+            #cv2.imwrite(path+".png",modelresults[i][j])
     cv2.waitKey(0)
     #sum=sum/len(sharedlist)
     #print(sharedlist)
