@@ -52,66 +52,101 @@ def sortweigths(weigths, modelnames):
                 print("did not match a csv file with model", n1,". Make sure csv file is named <model>_records.csv")
     return sortedweigths
 
+def average_ensemble(sortedweigths, images):
+    # average the models images together based on the weight of each model
+    norm_psnr = []
 
-def compute_ensemble(HRpath, weigths):
-    # goes trough each resulting image from the models and computes a single ensemble image from them
+    for value in sortedweigths:
+       y = value / (np.amax(sortedweigths))
+       norm_psnr.append(y)
+    imgs = np.array(images)
+
+    mean_img = np.average(imgs, weights=norm_psnr, axis=0) # uses weights from validation testing
+    #mean_img = imgs.mean(axis=0) # uses no weights
+    mean_img = mean_img.astype('uint8')
+    return mean_img
+
+
+def voting_ensemble(sortedweigths, images):
+    # Majority voting: each pixel is compared to the same pixel in other models
+    # the majority decides which values the pixel should hold
+    height, width = len(images[0]), len(images[0])
+    ensembleimage = 255 * np.ones((512, 512, 3), np.uint8)
+    # for each pixel
+    for x in range(width):
+        for y in range(height):
+            # get the pixel in all images
+            pixelList = []
+            for modelImage in images:
+                pixel = modelImage[x, y]
+                pixelList.append(pixel)
+            # print(pixelList)
+
+            votes = [0] * len(modelresults)
+            # compare each pixel with the next pixels in the list
+            for numbervote in range(len(pixelList)):
+                pixel1 = pixelList[numbervote]
+                result = len(votes) > 0 and any(elem > 2 for elem in votes) # if any pixel gets more than two votes, it has won
+                if result:
+                    break
+                for numbervote2 in range(numbervote + 1, len(pixelList)): # compare 0 with 1,2,3,4,5, 1 with 2,3,4,5, 2 with 3,4,5 etc.
+                    pixel2 = pixelList[numbervote2]
+                    if np.allclose(pixel1, pixel2):
+                        votes[numbervote] += 1
+                        if votes[numbervote] > 2: # if the pixel has more than two votes we dont need to compare anymore
+                            break
+            # print(votes)
+            maxIndexList = [i for i, j in enumerate(votes) if j == max(votes)]
+            votesareequal = len(votes) > 0 and all(elem == votes[0] for elem in votes)
+
+            if votesareequal:  # if all the pixels have the same amount of votes, pick the one with highest weight
+
+                winningvote = sortedweigths.index(max(sortedweigths))
+                # print("weigthdecier", winningvote)
+            elif len(maxIndexList) > 1:  # if some pixels have the same amount of votes, pick the one from the model with the highest weight
+                highestweight = 0
+                winningvalue = 0
+                for value in maxIndexList:
+                    weigth = sortedweigths[value]
+                    if weigth > highestweight:
+                        highestweight = weigth
+                        winningvalue = value
+                winningvote = votes[winningvalue]
+
+            else:  # one pixel has the highest amount of votes
+                winningvote = votes.index(max(votes))
+
+                # print("winning vote index", winningvote)
+            finalpixel = pixelList[winningvote]
+            ensembleimage[x, y] = finalpixel # put the winning pixel in the ensemble image
+    return ensembleimage
+
+
+def compute_ensemble(HRpath, weigths, type="average"):
+    # goes trough each resulting image from the models and computes a single ensemble image from them based on type
     hrimages = [image for image in os.listdir(HRpath) if image.endswith('.png')]
     ensemblepsnr ,ensembleimages = [], []
 
     for hrimagenumber in range(0, len(hrimages)): # there is one result for each model for each HR image they tested on
-        images = []
-        # psnr = []
+        images=[]
+
         for i in range(0, len(modelresults)):
                 images.append(modelresults[i][hrimagenumber]) # gets SR result of model number i for testing image number hrimagenumber
         sortedweigths = sortweigths(weigths, modelnames)
-        '''
-        
-        norm_psnr = []
-        for value in sortedweigths:
-            y = value  / (np.amax(sortedweigths))
-            norm_psnr.append(y)
-        imgs = np.array(images)
 
-        mean_img = np.average(imgs, weights=norm_psnr, axis=0) # uses weights from validation testing
-        #mean_img = imgs.mean(axis=0) # uses no weights
-        '''
-        #Majority voting
-        height,width = len(images[0]),len(images[0])
-        ensembleimage = 255 * np.ones((512,512,3), np.uint8)
-        for x in range(width):
-            for y in range(height):
-                pixelList = []
-                for modelImage in images:
-                    pixel = modelImage[x,y]
-                    pixelList.append(pixel)
-                #print(pixelList)
+        if type == "average":
+            ensembleimage = average_ensemble(sortedweigths, images)
+        elif type == "voting":
+            ensembleimage = voting_ensemble(sortedweigths, images)
+        else:
+            print("Wrong ensemble type")
+            return None
 
-                votes=[0,0,0,0,0,0]
-
-                for numbervote in range (len(pixelList)):
-                    pixel1=pixelList[numbervote]
-
-                    for numbervote2 in range (numbervote+1,len(pixelList)):
-                        pixel2 =pixelList[numbervote2]
-                        if np.allclose(pixel1, pixel2):
-                            votes[numbervote] +=1
-                print(votes)
-                print(np.all(votes == 0))
-                winningvote=0
-                if np.all(votes == 0):
-
-                    winningvote= weigths.index(max(weigths))
-                    print("weigthdecier", winningvote)
-                else:
-                    winningvote = votes.index(max(votes))
-                #print("winning vote index", winningvote)
-                finalpixel =pixelList[winningvote]
-                ensembleimage[x,y] =finalpixel
-        #mean_img = mean_img.astype('uint8')
         ensembleimages.append(ensembleimage)
         hr = cv2.imread(HRpath + "/" + hrimages[hrimagenumber]) # read the HR image to compare with emsemble image
         psnr, ssim = util.calc_metrics(ensembleimage, hr, crop_border=2) # computes psnr/ssim value of the ensemble
         ensemblepsnr.append((psnr,ssim))
+
     return ensembleimages,ensemblepsnr # returns lists of all the ensemble images and their psnr value
 
 def perimageresults(modelresults,modelnames,modelpsnr):
@@ -171,8 +206,9 @@ if __name__ ==  '__main__':
 
     weigths = compute_weigths(path_to_jsonfolder)
 
-    ensembleimages, ensemblepsnr = compute_ensemble(HRpath,weigths)
+    ensembleimages, ensemblepsnr = compute_ensemble(HRpath,weigths, type="average") #type = "average" or "voting"
 
+    # show and save the ensemble results
     with open(os.getcwd()+ '/FAWDN/results/Ensemble/ensemble.csv', 'w') as csvfile:
         writer = csv.writer(csvfile, delimiter=';')
         for y in range (0,len(ensembleimages)):
@@ -185,21 +221,13 @@ if __name__ ==  '__main__':
             ssim = str(round(ssim, 2))
             writer.writerow((y+1,psnr, ssim))
 
-
-
-
-
     perimageresults(modelresults, modelnames, modelpsnr)
     #print("ensemble psnr/ssim", psnr, ssim)
 
+    # show and save the individual models results
     for i in range(0,len(modelresults)):
         for j in range(0,len(modelresults[i])):
             path =os.getcwd()+"/FAWDN/results/Modelpics/"+str(modelnames[i])+"imagenum"+str(j+1)
             cv2.imshow(str(modelnames[i])+"imagenum"+str(j+1), modelresults[i][j])
             #cv2.imwrite(path+".png",modelresults[i][j])
     cv2.waitKey(0)
-    #sum=sum/len(sharedlist)
-    #print(sharedlist)
-
-    #print()
-
