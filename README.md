@@ -5,6 +5,8 @@ The folders FAWDN, BlindSR, DualSR and EnsembleLearing-Network contains current 
 The folder datasets contains different datasets used over the course of the project; MRI13 being the most prominent one. 
 
 Ensemble.py is the main script responsible for creating ensembles. 
-To use, open the script in your prefered IDE (tested in Pycharm), change lines 201-203 with your data and run the script. 
+To use, download the folder with the models from [Drive](https://drive.google.com/drive/folders/1oX7MLvJERDgf1UUrnDb2w33lqfJmmmJf?usp=sharing).
+Put the folder in VGIS8\FAWDN\options.
+Open the script in your prefered IDE (tested in Pycharm), change lines 201-203 with your data and run the script. 
 Individual model results pop up and are saved in VGIS8\FAWDN\results\Modelpics.
 Ensemble SR results pop up and are saved in VGIS8\FAWDN\results\Ensemble.
