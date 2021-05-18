@@ -11,5 +11,7 @@ To use:
 3. Open the script in your prefered IDE (tested in Pycharm)
 4. Change lines 201-203 with your data 
 5. Run the script. 
+
+
 Individual model results pop up and are saved in VGIS8\FAWDN\results\Modelpics.
 Ensemble SR results pop up and are saved in VGIS8\FAWDN\results\Ensemble.
